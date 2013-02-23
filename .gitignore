@@ -5,8 +5,9 @@
 *.war
 *.ear
 
-/gwt-unitCache 
-/test-classes 
-/war/projectname 
-/war/WEB-INF/deploy 
-/war/WEB-INF/classes 
+/build
+/classes
+*~
+*/web-app/gwt
+*/web-app/WEB-INF/classes
+target
