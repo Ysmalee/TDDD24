@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+/gwt-unitCache 
+/test-classes 
+/war/projectname 
+/war/WEB-INF/deploy 
+/war/WEB-INF/classes 
