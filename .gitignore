@@ -1,13 +1,7 @@
 *.class
 
 # Package Files #
-*.jar
 *.war
 *.ear
-
-/build
-/classes
 *~
-*/web-app/gwt
-*/web-app/WEB-INF/classes
-target
+war/WEB-INF/classes
