@@ -1,0 +1,2 @@
+serviceClass: com.aplp.client.GreetingService
+path: 045EC03A7DD025A7DD7F5B83735D60C5.gwt.rpc
