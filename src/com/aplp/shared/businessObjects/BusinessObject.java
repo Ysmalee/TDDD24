@@ -1,6 +1,9 @@
 package com.aplp.shared.businessObjects;
 
-public abstract class BusinessObject {
+import java.io.Serializable;
+
+public abstract class BusinessObject implements Serializable {
+	private static final long serialVersionUID = 5459744707220131584L;
 	private Integer _id;
 	
 	

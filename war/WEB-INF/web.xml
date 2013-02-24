@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5"
-         xmlns="http://java.sun.com/xml/ns/javaee">
+	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets -->
-<!--   <servlet> -->
-<!--     <servlet-name>forumServlet</servlet-name> -->
-<!--     <servlet-class>com.aplp.server.services.Service_Forum</servlet-class> -->
-<!--   </servlet> -->
-  
-<!--   <servlet-mapping> -->
-<!--     <servlet-name>forumServlet</servlet-name> -->
-<!--     <url-pattern>/forum/service_forum</url-pattern> -->
-<!--   </servlet-mapping> -->
-  
-<!--   <servlet> -->
-<!--     <servlet-name>userServlet</servlet-name> -->
-<!--     <servlet-class>com.aplp.server.services.Service_User</servlet-class> -->
-<!--   </servlet> -->
-  
-<!--   <servlet-mapping> -->
-<!--     <servlet-name>userServlet</servlet-name> -->
-<!--     <url-pattern>/forum/service_user</url-pattern> -->
-<!--   </servlet-mapping> -->
-  
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>Forum.html</welcome-file>
-  </welcome-file-list>
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>forumServlet</servlet-name>
+		<servlet-class>com.aplp.server.services.Service_ForumImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>forumServlet</servlet-name>
+		<url-pattern>/forum/service_forum</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>userServlet</servlet-name>
+		<servlet-class>com.aplp.server.services.Service_UserImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>userServlet</servlet-name>
+		<url-pattern>/forum/service_user</url-pattern>
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>Forum.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>

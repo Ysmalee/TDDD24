@@ -198,23 +198,17 @@ public class Forum implements Context {
 
 
 
-	/**
-	 * Switch to a new panel and call the events methods
-	 * COOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOL !
-	 * @param newPanelEnum New panel enumeration object
-	 * @param oldPanelArguments Arguments for the onSetInvisible event on the old panel
-	 * @param newPanelArguments Arguments for the onSetVisible event on the new panel
-	 */
-	public void changePanel(PanelsEnum newPanelEnum, Map<String, Object> oldPanelArguments, Map<String, Object> newPanelArguments) {
+	@Override
+	public void switchCurrentPanel(PanelsEnum newPanelEnum, Map<String, Object> oldPanelArguments, Map<String, Object> newPanelArguments) {
 		//Precondition
 		if(newPanelEnum == null) {
 			throw new IllegalArgumentException("The \"newPanel\" argument must not be null");
 		}
 		if(oldPanelArguments == null) {
-			throw new IllegalArgumentException("The \"oldPanelArguments\" argument must not be null");
+			oldPanelArguments = new HashMap<String, Object>();
 		}
 		if(newPanelArguments == null) {
-			throw new IllegalArgumentException("The \"newPanelArguments\" argument must not be null");
+			newPanelArguments = new HashMap<String, Object>();
 		}
 
 

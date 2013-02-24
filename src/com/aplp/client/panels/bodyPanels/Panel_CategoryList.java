@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.aplp.client.Context;
 import com.aplp.client.panels.PanelsEnum;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 public class Panel_CategoryList implements BodyPanel {
@@ -35,7 +36,7 @@ public class Panel_CategoryList implements BodyPanel {
 
 	@Override
 	public Widget getWidget(Context context) {
-		return null;
+		return new Label("Category list");
 	}
 
 

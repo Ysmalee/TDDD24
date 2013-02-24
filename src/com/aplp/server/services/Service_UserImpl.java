@@ -6,5 +6,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class Service_UserImpl extends RemoteServiceServlet implements Service_User {
 	private static final long serialVersionUID = -8106823898790043925L;
 
+	
+	@Override
+	public Boolean login(String userName, String password) {
+		return true;
+	}
+
 
 }

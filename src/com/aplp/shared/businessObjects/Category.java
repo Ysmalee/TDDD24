@@ -1,11 +1,17 @@
 package com.aplp.shared.businessObjects;
 
 public class Category extends BusinessObject {
+	
+	private static final long serialVersionUID = -452441124858265937L;
+	
 	private String _name;
 	private String _description;
 	
 	
-	
+	public Category() {
+		this._name = null;
+		this._description = null;
+	}
 	
 	public Category(Integer id, String name, String description) {
 		super(id);
