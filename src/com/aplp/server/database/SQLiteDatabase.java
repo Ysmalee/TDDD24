@@ -18,8 +18,9 @@ public class SQLiteDatabase implements Database {
 	 */
 	public SQLiteDatabase(String databaseLocation) throws Exception {
 		//Test the JDBC driver
+		
 		try {
-			Class.forName("SQLite.JDBCDriver");
+			Class.forName("org.sqlite.JDBC");
 		} catch(ClassNotFoundException e) {
 			throw new Exception("SQLite driver not found", e);
 		}

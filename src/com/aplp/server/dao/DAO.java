@@ -12,15 +12,7 @@ import com.aplp.server.database.Database;
  * @author tim
  *
  */
-public abstract class DAO {
-
-	//###########################################################
-	// DAO management 
-	//###########################################################
-	
-	//TODO: Implement the DAO management
-	
-	
+public abstract class DAO {	
 	
 
 	//###########################################################
@@ -38,15 +30,12 @@ public abstract class DAO {
 	 * @param database Database linked to the DAO
 	 * @throws SQLException 
 	 */
-	public DAO(Database database) throws SQLException {
+	public DAO(Database database) {
 		if(database == null) {
 			throw new IllegalArgumentException("The \"database\" argument must not be null");
 		}
 		
 		this._database = database;
-		
-		//Initialize the table
-		this.createTableIfNotExists();
 	}
 	
 	

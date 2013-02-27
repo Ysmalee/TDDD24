@@ -17,7 +17,7 @@ public class DAO_User extends DAO {
 	 * @param database Database object
 	 * @throws SQLException 
 	 */
-	public DAO_User(Database database) throws SQLException {
+	public DAO_User(Database database) {
 		super(database);
 		
 	}
@@ -31,10 +31,10 @@ public class DAO_User extends DAO {
 		String req = "" +
 				"CREATE TABLE IF NOT EXISTS " + User.TABLE_NAME + " (" +
 				"id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-				"login VARCHAR(40) NOT NULL" +
-				"password VARCHAR(40) NOT NULL" +
-				"moderator BOOLEAN NOT NULL" +
-				"UNIQUE(login)" +
+				"login VARCHAR(40) NOT NULL, " +
+				"password VARCHAR(40) NOT NULL, " +
+				"moderator BOOLEAN NOT NULL, " +
+				"UNIQUE(login) " +
 				");";
 
 		stat.executeUpdate(req);
@@ -73,7 +73,6 @@ public class DAO_User extends DAO {
 		String password = result.getString(2);
 		Boolean moderator = result.getBoolean(3);
 		User user = new User(id, login, password, moderator);
-		
 		
 		return user;
 	}

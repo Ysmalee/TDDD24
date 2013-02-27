@@ -4,7 +4,9 @@ import java.util.Map;
 
 import com.aplp.client.Context;
 import com.aplp.client.panels.PanelsEnum;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class Panel_Footer implements ExternPanel {
@@ -33,7 +35,7 @@ public class Panel_Footer implements ExternPanel {
 	// Attributs
 	//###############################################################
 
-	private Widget _mainWidget = null;
+	private Panel _mainWidget = null;
 
 
 
@@ -45,11 +47,13 @@ public class Panel_Footer implements ExternPanel {
 	@Override
 	public Widget getWidget(Context context) {
 		if(this._mainWidget == null) {
-			this._mainWidget = new Label(	"############################################################" +
-											"# FOOTER " +
-											"############################################################");
-			this._mainWidget.setHeight("10px");
+			this._mainWidget = new VerticalPanel();
+			
+			//Create the banner
+			Image banner = new Image("images/bottom.jpg");
+			this._mainWidget.add(banner);
 		}
+		
 		return this._mainWidget;
 	}
 
