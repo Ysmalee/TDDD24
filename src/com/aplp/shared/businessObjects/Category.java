@@ -3,6 +3,8 @@ package com.aplp.shared.businessObjects;
 public class Category extends BusinessObject {
 	
 	private static final long serialVersionUID = -452441124858265937L;
+
+	public static final String TABLE_NAME = "category";
 	
 	private String _name;
 	private String _description;

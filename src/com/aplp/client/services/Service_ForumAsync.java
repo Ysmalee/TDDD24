@@ -17,6 +17,6 @@ public interface Service_ForumAsync {
 
 	void getTopics(Category category, AsyncCallback<List<Topic>> callback);
 
-	
+	void getCategories(AsyncCallback<List<Category>> callback);
 
 }

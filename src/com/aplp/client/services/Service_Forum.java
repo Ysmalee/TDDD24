@@ -17,6 +17,7 @@ public interface Service_Forum extends RemoteService {
 	List<Answer> getAnswers(Message message);
 	List<Topic> getTopics(Category category);
 	User getOwner(Message message);
+	List<Category> getCategories();
 	
 	
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 public class Topic extends Message {
 	
 	private static final long serialVersionUID = -7711175003915317618L;
+
+	public static final String TABLE_NAME = "topic";
 	
 	private Integer _categoryId;
 	

@@ -30,12 +30,16 @@ public class DAOManager {
 	
 	private Database _database;
 	private DAO_User _daoUser;
+	private DAO_Category _daoCategory;
+	private DAO_Topic _daoTopic;
 	
 	private DAOManager(Database database) throws SQLException {
 		this._database = database;
 		
 		//Create the DAO
 		this._daoUser = new DAO_User(this._database);
+		this._daoCategory = new DAO_Category(this._database);
+		this._daoTopic = new DAO_Topic(this._database);
 		
 		//Check and initialize the tables
 		this.createTableIfNotExists();
@@ -44,10 +48,21 @@ public class DAOManager {
 	
 	private void createTableIfNotExists() throws SQLException {
 		this._daoUser.createTableIfNotExists();
+		this._daoCategory.createTableIfNotExists();
+		this._daoTopic.createTableIfNotExists();
 	}
 	
 	
 	public DAO_User getDAO_User() {
 		return this._daoUser;
+	}
+	
+	public DAO_Category getDAO_Category() {
+		return this._daoCategory;
+	}
+
+
+	public DAO_Topic getDAO_Topic() {
+		return this._daoTopic;
 	}
 }

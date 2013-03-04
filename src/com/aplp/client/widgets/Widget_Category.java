@@ -5,10 +5,12 @@ import java.util.Map;
 import com.aplp.client.Context;
 import com.aplp.client.panels.PanelsEnum;
 import com.aplp.shared.businessObjects.Category;
-import com.google.gwt.dev.util.collect.HashMap;
+import java.util.HashMap;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -39,7 +41,8 @@ public class Widget_Category extends Composite {
 	
 	private Widget createWidget() {
 		//Create the panels
-		Label title = new Label(this._category.get_name());
+		HTML title = new HTML("<a href=\"javascript:undefined;\">" + this._category.get_name() +"</a>");
+		//Label title = new Label(this._category.get_name());
 		title.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -49,6 +52,7 @@ public class Widget_Category extends Composite {
 			}
 		});
 		Label description = new Label(this._category.get_description());
+		description.setStyleName("descriptionCategory");
 		
 		//Create the composit structure
 		VerticalPanel compositWidget = new VerticalPanel();

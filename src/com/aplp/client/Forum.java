@@ -219,8 +219,8 @@ public class Forum implements Context {
 		//Call the onSetInvisible event
 		oldPanelEnum.getPanel().onSetInvisible(new HashMap<String, Object>(oldPanelArguments));
 
-		//Call the onSetVisible event
-		newPanelEnum.getPanel().onSetVisible(new HashMap<String, Object>(oldPanelArguments));
+		//Call the onSetVisible event CONNARD
+		newPanelEnum.getPanel().onSetVisible(new HashMap<String, Object>(newPanelArguments));
 
 		//Call the on switch event
 		if(this._headerPanel != null) {

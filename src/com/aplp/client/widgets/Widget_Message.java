@@ -56,7 +56,7 @@ public class Widget_Message extends Composite {
 	private Widget createMessageWidget() {
 		Label message = new Label();
 		message.setText(this._message.get_text());
-		
+		// TODO: Add the message answer
 		return message;
 	}
 	
