@@ -7,6 +7,7 @@ import java.util.Map;
 import com.aplp.client.Context;
 import com.aplp.client.panels.PanelsEnum;
 import com.aplp.client.widgets.Widget_Category;
+import com.aplp.client.widgets.Widget_Topic;
 import com.aplp.shared.businessObjects.Category;
 import com.aplp.shared.businessObjects.Topic;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -118,7 +119,8 @@ public class Panel_TopicList implements BodyPanel {
 			} else {
 				for(Topic t : result) {
 					//TODO Mettre une FlexTable au lieu de simples liens
-					Panel_TopicList.this._panel_main.add(new HTML("<a href=\"javascript:undefined;\">" + t.get_title() + "</a>"));
+					Widget_Topic widget = new Widget_Topic(Panel_TopicList.this._context, t);
+					Panel_TopicList.this._panel_main.add(widget);
 				}
 			}
 		}

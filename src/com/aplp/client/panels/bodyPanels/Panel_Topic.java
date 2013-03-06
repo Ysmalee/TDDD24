@@ -43,7 +43,7 @@ public class Panel_Topic implements BodyPanel {
 	// Panel methods
 	//###############################################################
 
-	private static final String ARG_TOPIC = "topic";
+	public static final String ARG_TOPIC = "topic";
 
 	private Panel _mainPanel;
 	private Panel _topicPanel;
