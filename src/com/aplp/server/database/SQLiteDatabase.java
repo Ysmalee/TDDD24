@@ -17,8 +17,11 @@ public class SQLiteDatabase implements Database {
 	 * @throws Exception
 	 */
 	public SQLiteDatabase(String databaseLocation) throws Exception {
-		//Test the JDBC driver
+		if(databaseLocation == null) {
+			throw new IllegalArgumentException("The \"databaseLocation\" must not be null");
+		}
 		
+		//Test the JDBC driver
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch(ClassNotFoundException e) {
