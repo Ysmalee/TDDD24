@@ -1,10 +1,17 @@
 package com.aplp.client.panels.bodyPanels;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.beanutils.converters.SqlDateConverter;
 
 import com.aplp.client.Context;
 import com.aplp.client.panels.PanelsEnum;
+import com.aplp.client.widgets.Widget_Category;
 import com.aplp.shared.businessObjects.Category;
+import com.aplp.shared.businessObjects.Topic;
 import com.aplp.shared.businessObjects.User;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -112,9 +119,27 @@ public class Panel_TopicCreation implements BodyPanel {
 
 
 	protected void createTopic(String title, String message) {
-		//this._context.getForumService().createTopic(topic, callback)
+		Date d = new Date();
+		User u = this._context.getUserConnected();
+		Topic topic = new Topic(title, message, d, u.get_id() , this._category.get_id());
+		this._context.getForumService().createTopic(topic, new AsyncCallback<Topic>() {
+			@Override
+			public void onSuccess(Topic result) {
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("category", Panel_TopicCreation.this._category);
+				Panel_TopicCreation.this._context.switchCurrentPanel(PanelsEnum.PANEL_TOPIC_LIST, null, params);
+			}
+			@Override
+			public void onFailure(Throwable caught) {
+				Panel_TopicCreation.this._label_error.setText(caught.getMessage());
+				Panel_TopicCreation.this._label_error.setVisible(true);				
+			}
+
+		});
+		this.clearWidgets();
+		
 	}
-	
+
 
 	private void clearWidgets() {
 		this._textBoxTitle.setText("");

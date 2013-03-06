@@ -36,7 +36,7 @@ public interface Context extends EntryPoint {
 	public void switchCurrentPanel(PanelsEnum newPanelEnum, Map<String, Object> oldPanelArguments, Map<String, Object> newPanelArguments);
 
 
-
+	User getUserConnected();
 	void setUserConnected(User user);
 	
 }
