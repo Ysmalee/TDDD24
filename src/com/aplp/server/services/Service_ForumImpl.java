@@ -42,6 +42,21 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 			return new ArrayList<Category>();
 		}
 	}
+	
+	
+	@Override
+	public Category getCategory_byId(Integer id) {
+		Category category;
+		
+		try {
+			category = this._daoManager.getDAO_Category().getCategory_byId(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			category = null;
+		}
+		
+		return category;
+	}
 	/********************************************************************************/
 
 
@@ -77,13 +92,25 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 
 		@Override
 	public Answer createAnswer(Answer answer) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return this._daoManager.getDAO_Answer().createAnswer(answer);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	@Override
 	public List<Answer> getAnswers(Message message) {
-		return null;
+		List<Answer> answers;
+		try {
+			answers = this._daoManager.getDAO_Answer().getAnswers(message);
+		} catch (SQLException e) {
+			answers = null;
+			e.printStackTrace();
+		}
+		
+		return answers;
 	}
 
 	/********************************************************************************/
@@ -94,6 +121,8 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 
 }

@@ -23,4 +23,6 @@ public interface Service_ForumAsync {
 
 	void createAnswer(Answer answer, AsyncCallback<Answer> callback);
 
+	void getCategory_byId(Integer id, AsyncCallback<Category> callback);
+
 }

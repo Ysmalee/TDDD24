@@ -17,6 +17,7 @@ public interface Service_Forum extends RemoteService {
 	List<Answer> getAnswers(Message message);
 	List<Topic> getTopics(Category category);
 	User getOwner(Message message);
+	Category getCategory_byId(Integer id);
 	List<Category> getCategories();
 	Topic createTopic(Topic topic);
 	Answer createAnswer(Answer answer);
