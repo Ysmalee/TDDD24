@@ -118,7 +118,7 @@ public class Panel_TopicList implements BodyPanel {
 			} else {
 				for(Topic t : result) {
 					//TODO Mettre une FlexTable au lieu de simples liens
-					Panel_TopicList.this._panel_main.add(new Label("<a href=\"javascript:undefined;\">" + t.get_title() + "</a>"));
+					Panel_TopicList.this._panel_main.add(new HTML("<a href=\"javascript:undefined;\">" + t.get_title() + "</a>"));
 				}
 			}
 		}

@@ -45,7 +45,7 @@ public class DAO_Topic extends DAO {
 		List<Topic> listTopics = new ArrayList<Topic>();
 
 		//Prepare the request
-		String sql = "SELECT * FROM " + Topic.TABLE_NAME +"WHERE categoryID = ?";
+		String sql = "SELECT * FROM " + Topic.TABLE_NAME +" WHERE categoryID = ?";
 		PreparedStatement stat = this.get_database().getConnection().prepareStatement(sql);
 		
 		stat.setInt(1,  category.get_id());
@@ -69,8 +69,22 @@ public class DAO_Topic extends DAO {
 		return listTopics;
 	}
 
-	public Topic createTopic(Topic topic) {
-		return null;
+	public Topic createTopic(Topic topic) throws SQLException {
+		//Prepare the request
+		String sql = "INSERT INTO " + Topic.TABLE_NAME + " VALUES (null, ?, ?, ?, ?, ?)";
+		PreparedStatement stat = this.get_database().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		stat.setString(1, topic.get_title());
+		stat.setString(2, topic.get_text());
+		stat.setDate(3, new java.sql.Date(topic.get_creationDate().getTime()));
+		stat.setInt(4, topic.get_ownerId());
+		stat.setInt(5, topic.get_categoryId());
+		//Execute the request
+		int nbRes = stat.executeUpdate();
+		
+		// Get the ID
+		ResultSet res = stat.getGeneratedKeys();
+		
+		return new Topic(res.getInt(1), topic.get_title(), topic.get_text(), topic.get_creationDate(), topic.get_ownerId(), topic.get_categoryId());
 	}
 
 }

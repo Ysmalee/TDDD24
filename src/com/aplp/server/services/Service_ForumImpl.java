@@ -64,7 +64,11 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 	
 	@Override
 	public Topic createTopic(Topic topic) {
-		return this._daoManager.getDAO_Topic().createTopic(topic);
+		try {
+			return this._daoManager.getDAO_Topic().createTopic(topic);
+		} catch (SQLException e) {
+			return null;
+		}
 	}
 	/********************************************************************************/
 

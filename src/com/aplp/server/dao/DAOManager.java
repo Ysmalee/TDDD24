@@ -18,9 +18,9 @@ public class DAOManager {
 		if(DAOManager._instance == null) {
 			String databaseLocation = null;
 			if(OSValidator.isWindows()) {
-				databaseLocation = "\\\\YSOS\\Ysos_Intern\\Tmp\\database.sqlite";
+				databaseLocation = "C:\\Users\\Nicolas\\Desktop\\database.sqlite";
 			} else if(OSValidator.isUnix()) {
-				databaseLocation = "/home/tim/Téléchargements/database.sqlite";
+				databaseLocation = "/home/tim/database.sqlite";
 			}
 
 			Database database = new SQLiteDatabase(databaseLocation);
