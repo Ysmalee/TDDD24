@@ -69,4 +69,7 @@ public class DAO_Topic extends DAO {
 		return listTopics;
 	}
 
+	public void createTopic(Topic topic) { 
+	}
+
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 import com.aplp.client.panels.PanelsEnum;
 import com.aplp.client.services.Service_ForumAsync;
 import com.aplp.client.services.Service_UserAsync;
+import com.aplp.shared.businessObjects.User;
 import com.google.gwt.core.client.EntryPoint;
 
 public interface Context extends EntryPoint {
@@ -33,5 +34,9 @@ public interface Context extends EntryPoint {
 	 * @param newPanelArguments Arguments for the onSetVisible event on the new panel
 	 */
 	public void switchCurrentPanel(PanelsEnum newPanelEnum, Map<String, Object> oldPanelArguments, Map<String, Object> newPanelArguments);
+
+
+
+	void setUserConnected(User user);
 	
 }

@@ -11,6 +11,7 @@ import com.aplp.client.services.Service_Forum;
 import com.aplp.client.services.Service_ForumAsync;
 import com.aplp.client.services.Service_User;
 import com.aplp.client.services.Service_UserAsync;
+import com.aplp.shared.businessObjects.User;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -54,6 +55,10 @@ public class Forum implements Context {
 	//###############################################################
 	// Attributs
 	//###############################################################
+	/**
+	 * User connected
+	 */
+	private User _userConnected;
 
 	/**
 	 * Header panel
@@ -261,8 +266,14 @@ public class Forum implements Context {
 	}
 
 
+	public User getUserConnected() {
+		return this._userConnected;
+	}
 
 
+	public void setUserConnected(User userConnected) {
+		this._userConnected = userConnected;
+	}
 
 
 }

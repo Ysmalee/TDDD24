@@ -29,6 +29,7 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 		}
 	}
 	
+	/**************************************CATEGORY***********************************/
 	@Override
 	public List<Category> getCategories() {
 		//Find the categories
@@ -41,11 +42,12 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 			return new ArrayList<Category>();
 		}
 	}
+	/********************************************************************************/
 
-	@Override
-	public List<Answer> getAnswers(Message message) {
-		return null;
-	}
+
+	
+	
+	/**************************************TOPIC***********************************/
 
 	@Override
 	public List<Topic> getTopics(Category category) {
@@ -59,11 +61,23 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 			return new ArrayList<Topic>();
 		}
 	}
+	
+	@Override
+	public void createTopic(Topic topic) {
+		this._daoManager.getDAO_Topic().createTopic(topic);
+	}
+	/********************************************************************************/
+
+	
+	
+	@Override
+	public List<Answer> getAnswers(Message message) {
+		return null;
+	}
 
 	@Override
 	public User getOwner(Message message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

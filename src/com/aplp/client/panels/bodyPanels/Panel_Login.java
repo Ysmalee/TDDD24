@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.aplp.client.Context;
 import com.aplp.client.panels.PanelsEnum;
+import com.aplp.shared.businessObjects.User;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -106,11 +107,12 @@ public class Panel_Login implements BodyPanel {
 	 * Login attempt with the current username and password
 	 */
 	private void loginAttempt(String username, String password) {
-		this._context.getUserService().login(username, password, new AsyncCallback<Boolean>() {			
+		this._context.getUserService().login(username, password, new AsyncCallback<User>() {			
 			@Override
-			public void onSuccess(Boolean result) {
-				if(result == true) {
+			public void onSuccess(User result) {
+				if(result != null) {
 					Panel_Login.this._label_error.setVisible(false);
+					Panel_Login.this._context.setUserConnected(result);
 					Panel_Login.this._context.switchCurrentPanel(PanelsEnum.PANEL_CATEGORY_LIST, null, null);
 				} else {
 					Panel_Login.this._label_error.setText("Username or password incorrect");
