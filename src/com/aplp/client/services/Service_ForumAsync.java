@@ -19,6 +19,8 @@ public interface Service_ForumAsync {
 
 	void getCategories(AsyncCallback<List<Category>> callback);
 
-	void createTopic(Topic topic, AsyncCallback<Void> callback);
+	void createTopic(Topic topic, AsyncCallback<Topic> callback);
+
+	void createAnswer(Answer answer, AsyncCallback<Answer> callback);
 
 }

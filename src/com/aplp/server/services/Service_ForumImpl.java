@@ -63,21 +63,33 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 	}
 	
 	@Override
-	public void createTopic(Topic topic) {
-		this._daoManager.getDAO_Topic().createTopic(topic);
+	public Topic createTopic(Topic topic) {
+		return this._daoManager.getDAO_Topic().createTopic(topic);
 	}
 	/********************************************************************************/
 
 	
+	/**************************************ANSWER***********************************/
+
+		@Override
+	public Answer createAnswer(Answer answer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public List<Answer> getAnswers(Message message) {
 		return null;
 	}
 
+	/********************************************************************************/
+	
+	
 	@Override
 	public User getOwner(Message message) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 }

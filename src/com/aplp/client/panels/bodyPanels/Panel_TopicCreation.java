@@ -90,7 +90,7 @@ public class Panel_TopicCreation implements BodyPanel {
 		buttonCreate.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				Panel_TopicCreation.this.createMessage(Panel_TopicCreation.this._textBoxTitle.getText(), Panel_TopicCreation.this._textAreaMessage.getText());
+				Panel_TopicCreation.this.createTopic(Panel_TopicCreation.this._textBoxTitle.getText(), Panel_TopicCreation.this._textAreaMessage.getText());
 			}
 		});
 		
@@ -111,7 +111,7 @@ public class Panel_TopicCreation implements BodyPanel {
 
 
 
-	protected void createMessage(String title, String message) {
+	protected void createTopic(String title, String message) {
 		//this._context.getForumService().createTopic(topic, callback)
 	}
 	

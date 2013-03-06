@@ -11,7 +11,7 @@ public class DAOManager {
 	// Singleton
 	//########################################################	
 	
-	private static final String DATABASE_LOCATION = "database.sqlite";
+	private static final String DATABASE_LOCATION = "\\\\YSOS\\Ysos_Intern\\Tmp\\database.sqlite";
 	
 	private static DAOManager _instance;
 	
@@ -32,6 +32,7 @@ public class DAOManager {
 	private DAO_User _daoUser;
 	private DAO_Category _daoCategory;
 	private DAO_Topic _daoTopic;
+	private DAO_Answer _daoAnswer;
 	
 	private DAOManager(Database database) throws SQLException {
 		this._database = database;
@@ -40,6 +41,7 @@ public class DAOManager {
 		this._daoUser = new DAO_User(this._database);
 		this._daoCategory = new DAO_Category(this._database);
 		this._daoTopic = new DAO_Topic(this._database);
+		this._daoAnswer = new DAO_Answer(this._database);
 		
 		//Check and initialize the tables
 		this.createTableIfNotExists();
@@ -50,6 +52,7 @@ public class DAOManager {
 		this._daoUser.createTableIfNotExists();
 		this._daoCategory.createTableIfNotExists();
 		this._daoTopic.createTableIfNotExists();
+		this._daoAnswer.createTableIfNotExists();
 	}
 	
 	
@@ -64,5 +67,9 @@ public class DAOManager {
 
 	public DAO_Topic getDAO_Topic() {
 		return this._daoTopic;
+	}
+	
+	public DAO_Answer getDAO_Answer() {
+		return this._daoAnswer;
 	}
 }
