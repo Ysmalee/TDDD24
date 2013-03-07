@@ -53,7 +53,7 @@ public class DAO_Answer extends DAO {
 		}
 		
 		//Prepare the request
-		String sql = "INSERT INTO table_name (title, message, creationDate, ownerID, answerID, topicID)" +
+		String sql = "INSERT INTO " + Answer.TABLE_NAME + " (title, message, creationDate, ownerID, answerID, topicID)" +
 				"VALUES (?, ?, ?, ?, ?, ?)";
 		PreparedStatement stat = this.get_database().getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		stat.setString(1, answer.get_title());

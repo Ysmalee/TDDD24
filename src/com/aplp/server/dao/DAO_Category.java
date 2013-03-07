@@ -24,7 +24,7 @@ public class DAO_Category extends DAO {
 				"CREATE TABLE IF NOT EXISTS " + Category.TABLE_NAME + " (" +
 				"id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
 				"name VARCHAR(20) NOT NULL, " +
-				"descritpion VARCHAR(150) NOT NULL, " +
+				"description VARCHAR(150) NOT NULL, " +
 				"UNIQUE(name) " +
 				");";
 

@@ -25,4 +25,6 @@ public interface Service_ForumAsync {
 
 	void getCategory_byId(Integer id, AsyncCallback<Category> callback);
 
+	void removeMessage(Message message, AsyncCallback<Void> callback);
+
 }

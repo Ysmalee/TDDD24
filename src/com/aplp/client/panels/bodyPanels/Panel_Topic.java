@@ -67,7 +67,7 @@ public class Panel_Topic implements BodyPanel {
 		this._mainPanel = new VerticalPanel();
 
 		//Create the back link
-		HTML backWidget = new HTML("<a href=\"javascript:undefined;\">Back to the category list</a>");
+		HTML backWidget = new HTML("<a href=\"javascript:undefined;\">Back</a>");
 		backWidget.addClickHandler(new ClickHandler() {
 
 			@Override

@@ -118,8 +118,20 @@ public class Service_ForumImpl extends RemoteServiceServlet implements Service_F
 	
 	@Override
 	public User getOwner(Message message) {
+		User user;
+		try {
+			user = this._daoManager.getDAO_User().getUser_byId(message.get_ownerId());
+		} catch (SQLException e) {
+			user = null;
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+	@Override
+	public void removeMessage(Message message) {
 		// TODO Auto-generated method stub
-		return null;
+		System.err.println("TODO: Implement the removeMessage function");
 	}
 
 	

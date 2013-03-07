@@ -21,5 +21,6 @@ public interface Service_Forum extends RemoteService {
 	List<Category> getCategories();
 	Topic createTopic(Topic topic);
 	Answer createAnswer(Answer answer);
+	void removeMessage(Message message);
 	
 }

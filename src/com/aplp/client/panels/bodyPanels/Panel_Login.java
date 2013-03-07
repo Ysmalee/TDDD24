@@ -7,6 +7,9 @@ import com.aplp.client.panels.PanelsEnum;
 import com.aplp.shared.businessObjects.User;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -20,13 +23,13 @@ public class Panel_Login implements BodyPanel {
 
 	private Context _context;
 	private Panel _panel_main;
-	
+
 	private TextBox _textbox_username;
 	private TextBox _textbox_password;
 	private Label _label_error;
 
 
-	
+
 	//###############################################################
 	// Singleton pattern
 	//###############################################################
@@ -56,6 +59,7 @@ public class Panel_Login implements BodyPanel {
 		if(this._panel_main == null) {
 			this._context = context;
 			this.initializeWidget();
+			this._textbox_username.setFocus(true);
 		}
 		return this._panel_main;
 	}
@@ -68,12 +72,19 @@ public class Panel_Login implements BodyPanel {
 		//Create the fields
 		this._textbox_username = new TextBox();
 		this._textbox_password = new PasswordTextBox();
+		this._textbox_password.addKeyPressHandler(new KeyPressHandler() {
+			public void onKeyPress(KeyPressEvent event) {
+				if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+					Panel_Login.this.loginAttempt(Panel_Login.this._textbox_username.getText(), Panel_Login.this._textbox_password.getText());
+				}
+			}
+		});
 
 		//Create the field panel
 		Panel fieldsPanel = new VerticalPanel();
 		fieldsPanel.add(this._textbox_username);
 		fieldsPanel.add(this._textbox_password);
-		
+
 		//Create the error label
 		this._label_error = new Label("");
 		this._label_error.setVisible(false);
@@ -87,12 +98,12 @@ public class Panel_Login implements BodyPanel {
 				Panel_Login.this.loginAttempt(Panel_Login.this._textbox_username.getText(), Panel_Login.this._textbox_password.getText());
 			}
 		});
-		
+
 		//Create the button panel
 		Panel buttonPanel = new VerticalPanel();
 		buttonPanel.add(this._label_error);
 		buttonPanel.add(button_login);
-		
+
 		//Create the main panel
 		this._panel_main = new VerticalPanel();
 		this._panel_main.add(fieldsPanel);
@@ -102,7 +113,7 @@ public class Panel_Login implements BodyPanel {
 		this.clearWidgets();
 	}
 
-	
+
 	/**
 	 * Login attempt with the current username and password
 	 */
@@ -119,7 +130,7 @@ public class Panel_Login implements BodyPanel {
 					Panel_Login.this._label_error.setVisible(true);
 				}
 			}
-			
+
 			@Override
 			public void onFailure(Throwable caught) {
 				Panel_Login.this._label_error.setText(caught.getMessage());
@@ -127,9 +138,10 @@ public class Panel_Login implements BodyPanel {
 			}
 		});
 	}
-	
-	
-	
+
+
+
+
 	/**
 	 * Reset the fields text/visibility
 	 */
