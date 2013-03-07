@@ -7,4 +7,6 @@ public interface Service_UserAsync {
 
 	void login(String login, String password, AsyncCallback<User> callback);
 
+	void getUserById(Integer id, AsyncCallback<User> callback);
+
 }

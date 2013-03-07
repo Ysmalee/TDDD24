@@ -2,14 +2,11 @@ package com.aplp.client.panels.bodyPanels;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.converters.SqlDateConverter;
 
 import com.aplp.client.Context;
 import com.aplp.client.panels.PanelsEnum;
-import com.aplp.client.widgets.Widget_Category;
 import com.aplp.shared.businessObjects.Category;
 import com.aplp.shared.businessObjects.Topic;
 import com.aplp.shared.businessObjects.User;
@@ -19,7 +16,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;

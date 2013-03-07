@@ -41,6 +41,18 @@ public class Service_UserImpl extends RemoteServiceServlet implements Service_Us
 			return null;
 		}
 	}
+	
+	public User getUserById(Integer id) {
+		//Find the user
+		User user;
+		try {
+			user = this._daoManager.getDAO_User().getUser_byId(id);
+			return user;
+		} catch (SQLException e) {
+			//TODO: Add the exception handling
+			return null;
+		}
+	}
 
 
 }

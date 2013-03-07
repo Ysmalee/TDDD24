@@ -6,8 +6,7 @@ import java.util.Map;
 
 import com.aplp.client.Context;
 import com.aplp.client.panels.PanelsEnum;
-import com.aplp.client.widgets.Widget_Category;
-import com.aplp.client.widgets.Widget_Topic;
+import com.aplp.client.widgets.Widget_Topic_List;
 import com.aplp.shared.businessObjects.Category;
 import com.aplp.shared.businessObjects.Topic;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -30,6 +29,7 @@ public class Panel_TopicList implements BodyPanel {
 	private Category _category;
 	private HTML _back;
 	private Button _createButton;
+	private Panel _panel_topics;
 
 	
 	//###############################################################
@@ -68,10 +68,12 @@ public class Panel_TopicList implements BodyPanel {
 	private void initializeWidget() {
 		//Create the main panel
 		this._panel_main = new VerticalPanel();
+		this._panel_topics = new VerticalPanel();
 		//Create the labels
 		this._labelError = new Label("");
 		this._labelError.setVisible(false);
 		this._labelEmpty = new Label("");
+
 		
 		//Create the back link
 		this._back = new HTML("<a href=\"javascript:undefined;\">Back to the category list</a>");
@@ -95,6 +97,7 @@ public class Panel_TopicList implements BodyPanel {
 			}
 		});
 		
+		this._panel_main.add(this._panel_topics);
 		this._panel_main.add(this._createButton);
 	}
 
@@ -103,7 +106,6 @@ public class Panel_TopicList implements BodyPanel {
 	public void onSetVisible(Map<String, Object> arguments) {
 		this._category = (Category)arguments.get("category");
 		this.displayTopics(); // Le onSetVisible est callé qu'après initWidget du coup on peut se servir de l'argument que là...
-		this.clearWidgets();
 	}
 
 
@@ -117,11 +119,8 @@ public class Panel_TopicList implements BodyPanel {
 				Panel_TopicList.this._labelEmpty.setText("There is no topic right now, create one!");
 				Panel_TopicList.this._panel_main.add(Panel_TopicList.this._labelEmpty);
 			} else {
-				for(Topic t : result) {
-					//TODO Mettre une FlexTable au lieu de simples liens
-					Widget_Topic widget = new Widget_Topic(Panel_TopicList.this._context, t);
-					Panel_TopicList.this._panel_main.add(widget);
-				}
+					Widget_Topic_List widget = new Widget_Topic_List(Panel_TopicList.this._context, result);
+					Panel_TopicList.this._panel_topics.add(widget);
 			}
 		}
 		
@@ -148,6 +147,7 @@ public class Panel_TopicList implements BodyPanel {
 		this._labelError.setText("");
 		this._labelError.setVisible(false);
 		this._labelEmpty.setText("");
+		this._panel_topics.clear();
 	}
 
 
