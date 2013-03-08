@@ -18,7 +18,6 @@ public class DAO_Answer extends DAO {
 
 	public DAO_Answer(Database database) {
 		super(database);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -113,7 +112,7 @@ public class DAO_Answer extends DAO {
 	 * @return Answers list
 	 * @throws SQLException 
 	 */
-	private List<Answer> getAnswer_Answer(Answer answer) throws SQLException {
+	public List<Answer> getAnswer_Answer(Answer answer) throws SQLException {
 		if(answer == null) {
 			throw new IllegalArgumentException("The \"answer\" argument must not be null");
 		}
@@ -157,7 +156,7 @@ public class DAO_Answer extends DAO {
 	 * @return Answers list
 	 * @throws SQLException 
 	 */
-	private List<Answer> getAnswer_Topic(Topic topic) throws SQLException {
+	public List<Answer> getAnswer_Topic(Topic topic) throws SQLException {
 		if(topic == null) {
 			throw new IllegalArgumentException("The \"topic\" argument must not be null");
 		}
@@ -192,6 +191,73 @@ public class DAO_Answer extends DAO {
 		}
 
 		return answers;
+	}
+	
+	
+	
+	public void removeAnswer(Answer answer) throws SQLException {
+		if(answer == null) {
+			throw new IllegalArgumentException("The \"answer\" argument must not be null");
+		}
+		if(answer.get_id() == null) {
+			throw new IllegalArgumentException("The \"answer\" object must not have a null id");
+		}
+		
+		
+		//Remove the children answers
+		List<Answer> answers = this.getAnswer_Answer(answer);
+		for (Answer child : answers) {
+			this.removeAnswer(child);
+		}
+		
+		//Prepare the request
+		String sql = "DELETE FROM " + Answer.TABLE_NAME + 
+					" WHERE id=?;";
+
+		
+		PreparedStatement stat = this.get_database().getConnection().prepareStatement(sql);
+		stat.setInt(1, answer.get_id());
+		
+		//Execute the request
+		stat.executeUpdate();
+	}
+	
+	
+	
+	
+	public void updateAnswer(Answer answer) throws SQLException {
+		if(answer == null) {
+			throw new IllegalArgumentException("The \"answer\" argument must not be null");
+		}
+		if(answer.get_id() == null) {
+			throw new IllegalArgumentException("The \"answer\" object must not have a null id");
+		}
+		
+		//Prepare the request
+		String sql = "UPDATE " + Answer.TABLE_NAME + 
+					" SET title=?, message=?, creationDate=?, ownerID=?, answerID=?, topicID=? " +
+					" WHERE id=?;";
+
+		
+		PreparedStatement stat = this.get_database().getConnection().prepareStatement(sql);
+		stat.setString(1, answer.get_title());
+		stat.setString(2, answer.get_text());
+		stat.setDate(3, new java.sql.Date(answer.get_creationDate().getTime()));
+		stat.setInt(4, answer.get_ownerId());
+		if(answer.get_parentAnswerId() == null) {
+			stat.setNull(5, Types.INTEGER);
+		} else {
+			stat.setInt(5, answer.get_parentAnswerId());
+		}
+		if(answer.get_parentTopicId() == null) {
+			stat.setNull(6, Types.INTEGER);
+		} else {
+			stat.setInt(6, answer.get_parentTopicId());
+		}
+		stat.setInt(7, answer.get_id());
+		
+		//Execute the request
+		stat.executeUpdate();
 	}
 
 }

@@ -30,13 +30,14 @@ h1 {
 	color: red;
 }
 
+
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
 	margin: 15px 6px 6px;
 }
 
 /*************************************WIDGET CATEGORY******************************************/
-.nameCategory{
+.nameCategory {
 	color: red;
 }
 

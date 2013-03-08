@@ -62,7 +62,6 @@ public class Panel_Header implements ExternPanel {
 
 	@Override
 	public void onSetVisible(Map<String, Object> arguments) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -70,7 +69,6 @@ public class Panel_Header implements ExternPanel {
 
 	@Override
 	public void onSetInvisible(Map<String, Object> arguments) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -80,7 +78,6 @@ public class Panel_Header implements ExternPanel {
 	public void onPanelChange(PanelsEnum oldPanel,
 			Map<String, Object> oldPanelArguments, PanelsEnum newPanel,
 			Map<String, Object> newPanelArguments) {
-		// TODO Auto-generated method stub
 
 	}
 

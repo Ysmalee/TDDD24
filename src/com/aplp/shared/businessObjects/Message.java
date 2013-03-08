@@ -59,6 +59,11 @@ public abstract class Message extends BusinessObject {
 	public void set_text(String _text) {
 		this._text = _text;
 	}
+	
+	public String get_htmlText() {
+		return this._text;
+//		return this._text.replace("\n", "<br />");
+	}
 
 	public Integer get_ownerId() {
 		return _ownerId;

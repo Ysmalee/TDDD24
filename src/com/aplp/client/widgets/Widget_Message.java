@@ -19,6 +19,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -30,12 +31,16 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class Widget_Message extends Composite {
 
-	private Panel _answersPanel;
-	private Panel _answerPanel;
-	private TextArea _answerTextArea;
-	private Panel _actionPanel;
+	private Panel _messagePanel = new VerticalPanel();
+	private HTML _messageLabel = new HTML();
+	private Panel _answersPanel = new VerticalPanel();
+	private Panel _answerPanel = new VerticalPanel();
+	private TextArea _answerTextArea = new TextArea();
+	private Panel _editPanel = new VerticalPanel();
+	private TextArea _editTextArea = new TextArea();
+	private Panel _actionPanel = new VerticalPanel();
 
-	private Label _errorLabel;
+	private HTML _errorLabel = new HTML();
 
 	private Message _message;
 	private Context _context;
@@ -55,6 +60,7 @@ public class Widget_Message extends Composite {
 
 		//Initialize the widget
 		Widget compositWidget = this.createWidget();
+
 		this.initWidget(compositWidget); //All composites must call initWidget() in their constructors.
 	}
 
@@ -62,41 +68,72 @@ public class Widget_Message extends Composite {
 
 	private Widget createWidget() {
 		//Error label
-		this._errorLabel = new Label("");
-		this._errorLabel.setVisible(false);
+		this.hideErrorLabel();
 
 		//Create the panels
+		Panel titlePanel = this.createTitlePanel();
 		Panel messagePanel = this.createMessagePanel();
+		Panel answerPanel = this.createAnswerPanel();
+		Panel editPanel = this.createEditPanel();
+		Panel actionPanel = this.createActionPanel();
 		Panel answersPanel = this.createAnswersPanel();
 		Panel userPanel = this.createUserPanel();
+
+
+
+		Panel postPanel = new VerticalPanel();
+		postPanel.add(messagePanel);
+		postPanel.add(editPanel);
+		this.hideEditPanel();
+
+		Panel titleMessageAnswerPanel = new VerticalPanel();
+		titleMessageAnswerPanel.add(titlePanel);
+		titleMessageAnswerPanel.add(postPanel);
+		titleMessageAnswerPanel.add(answerPanel);
+		this.hideAnswerPanel();
+
+		Panel mainPanel = new HorizontalPanel();
+		mainPanel.add(titleMessageAnswerPanel);
+		mainPanel.add(actionPanel);
+
+
+
+		//Add the mouse over handling
+		mainPanel.addDomHandler(new MouseOverHandler() {
+			@Override
+			public void onMouseOver(MouseOverEvent event) {
+				Widget_Message.this._actionPanel.setVisible(true);
+			}
+		}, MouseOverEvent.getType());
+
+
+		//Add the mouse out handling
+		mainPanel.addDomHandler(new MouseOutHandler() {
+			@Override
+			public void onMouseOut(MouseOutEvent event) {
+				Widget_Message.this._actionPanel.setVisible(false);
+			}
+		}, MouseOutEvent.getType());
+
 
 
 		//Create the messages structure
 		HTMLTable structure = new Grid(3, 2);
 		structure.setWidget(0, 1, this._errorLabel);
 		structure.setWidget(1, 0, userPanel);
-		structure.setWidget(1, 1, messagePanel);
+		structure.setWidget(1, 1, mainPanel);
 		structure.setWidget(2, 1, answersPanel);
 
 		return structure;
 	}
 
 
-	/**
-	 * Create the panel containing the text message and the answer system
-	 * @return
-	 */
-	private Panel createMessagePanel() {
-		Panel messagePanel = new VerticalPanel();
-		messagePanel.add(this.createMessagePanel_TextPanel());
-		messagePanel.add(this.createMessagePanel_AnswerPanel());
-		return messagePanel;
-	}
+
 
 
 	private Panel createUserPanel() {
 		//Data
-		final Label user = new Label("Unknown");
+		final Label user = new Label("");
 		final Image moderator = new Image("images/moderator.png");
 		moderator.setVisible(false);
 		final Image avatar = new Image("images/avatar_default.png");
@@ -148,11 +185,18 @@ public class Widget_Message extends Composite {
 				Widget_Message.this.removeMessage();
 			}
 		});
+		//Remove image
+		Image editImage = new Image("images/edit.png");
+		editImage.setVisible(this._context.getUserConnected().get_moderator());
+		editImage.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Widget_Message.this.showEditPanel();
+			}
+		});
 
-
-
-		this._actionPanel = new VerticalPanel();
 		this._actionPanel.add(answerImage);
+		this._actionPanel.add(editImage);
 		this._actionPanel.add(removeImage);
 		this._actionPanel.setVisible(false);
 
@@ -160,54 +204,62 @@ public class Widget_Message extends Composite {
 	}
 
 
-	private Panel createMessagePanel_TextPanel() {
+
+	private Panel createEditPanel() {
+		//Buttons
+		Button editButton = new Button("Edit", new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Widget_Message.this.editMessage(Widget_Message.this._editTextArea.getText());
+			}
+		});
+		Button cancelButton = new Button("Cancel", new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Widget_Message.this.hideEditPanel();
+			}
+		});
+
+		//Button panel
+		Panel buttonPanel = new HorizontalPanel();
+		buttonPanel.add(editButton);
+		buttonPanel.add(cancelButton);
+
+		//Answer panel
+		this._editPanel.add(this._editTextArea);
+		this._editPanel.add(buttonPanel);
+
+		return this._editPanel;
+	}
+
+
+	private Panel createTitlePanel() {
 		//Data
 		Label title = new Label(this._message.get_title());
 		Label creationDate = new Label(this._message.get_creationDate().toString());
-		Label message = new Label(this._message.get_text());
 
 		//Title panel
 		Panel titlePanel = new HorizontalPanel();
 		titlePanel.add(title);
 		titlePanel.add(creationDate);
 
-		//Text panel
-		Panel textPanel = new VerticalPanel();
-		textPanel.add(titlePanel);
-		textPanel.add(message);
-
-
-		//Text + action panel
-		Panel returnedPanel = new HorizontalPanel();
-		returnedPanel.add(textPanel);
-		returnedPanel.add(this.createActionPanel());
-
-		//Add the mouse over handling
-		returnedPanel.addDomHandler(new MouseOverHandler() {
-			@Override
-			public void onMouseOver(MouseOverEvent event) {
-				Widget_Message.this._actionPanel.setVisible(true);
-			}
-		}, MouseOverEvent.getType());
-
-
-		//Add the mouse out handling
-		returnedPanel.addDomHandler(new MouseOutHandler() {
-			@Override
-			public void onMouseOut(MouseOutEvent event) {
-				Widget_Message.this._actionPanel.setVisible(false);
-			}
-		}, MouseOutEvent.getType());
-
-		return returnedPanel;
+		return titlePanel;
 	}
 
 
 
-	private Panel createMessagePanel_AnswerPanel() {
-		//Answer text field
-		this._answerTextArea = new TextArea();
+	private Panel createMessagePanel() {
+		this._messageLabel.setText(this._message.get_htmlText());
 
+		//Text panel
+		this._messagePanel.add(this._messageLabel);
+
+		return this._messagePanel;
+	}
+
+
+
+	private Panel createAnswerPanel() {
 		//Buttons
 		Button sendButton = new Button("Send", new ClickHandler() {
 			@Override
@@ -228,8 +280,6 @@ public class Widget_Message extends Composite {
 		buttonPanel.add(cancelButton);
 
 		//Answer panel
-		this._answerPanel = new VerticalPanel();
-		this._answerPanel.setVisible(false);
 		this._answerPanel.add(this._answerTextArea);
 		this._answerPanel.add(buttonPanel);
 
@@ -243,9 +293,6 @@ public class Widget_Message extends Composite {
 	 * @return
 	 */
 	private Panel createAnswersPanel() {
-		//Create the parts of the answer panel
-		this._answersPanel = new VerticalPanel();
-
 		//Fill the structure
 		this._context.getForumService().getAnswers(this._message, new AsyncCallback<List<Answer>>() {
 			@Override
@@ -295,12 +342,37 @@ public class Widget_Message extends Composite {
 	}
 
 
+	/**
+	 * Show the answer panel and the buttons
+	 */
+	private void showEditPanel() {
+		this._editTextArea.setText(this._message.get_text());
+		this._messagePanel.setVisible(false);
+		this._editPanel.setVisible(true);
+	}
+
+
+
+	/**
+	 * Hide the answer panel
+	 */
+	private void hideEditPanel() {
+		this._editTextArea.setText(this._message.get_text());
+		this._editPanel.setVisible(false);
+		this._messagePanel.setVisible(true);
+	}
+
+
 
 	/**
 	 * Create a new answer record in database and add a widget on success
 	 * @param message new answer
 	 */
 	private void sendAnswer(String message) {
+		if(message.isEmpty()) {
+			return;
+		}
+
 		//Create the answer object
 		Answer answer;
 		if(this._message instanceof Topic) {
@@ -323,6 +395,32 @@ public class Widget_Message extends Composite {
 				Widget_Message.this.hideErrorLabel();
 				Widget_Message.this.hideAnswerPanel();
 				Widget_Message.this.addAnswer(result);
+			}
+		});
+	}
+
+
+
+
+	/**
+	 * Edit the current message
+	 * @param newText New text
+	 */
+	private void editMessage(final String newText) {
+		this._message.set_text(newText);
+		
+		this._context.getForumService().editMessage(this._message, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Widget_Message.this.showErrorLabel(caught.getMessage());
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Widget_Message.this.hideErrorLabel();
+				Widget_Message.this.hideEditPanel();
+				Widget_Message.this._messageLabel.setText(Widget_Message.this._message.get_htmlText());
 			}
 		});
 	}

@@ -32,5 +32,4 @@ public class Topic extends Message {
 	public void set_categoryId(Integer _categoryId) {
 		this._categoryId = _categoryId;
 	}
-
 }

@@ -27,4 +27,6 @@ public interface Service_ForumAsync {
 
 	void removeMessage(Message message, AsyncCallback<Void> callback);
 
+	void editMessage(Message message, AsyncCallback<Void> callback);
+
 }

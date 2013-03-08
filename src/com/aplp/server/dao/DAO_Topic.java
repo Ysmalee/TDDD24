@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.aplp.server.database.Database;
+import com.aplp.shared.businessObjects.Answer;
 import com.aplp.shared.businessObjects.Category;
 import com.aplp.shared.businessObjects.Topic;
 
@@ -59,7 +60,7 @@ public class DAO_Topic extends DAO {
 			Integer id = result.getInt(1);
 			String title = result.getString(2);
 			String message = result.getString(3);
-			Date creationDate = result.getDate(4);
+			Date creationDate = new Date(result.getDate(4).getTime());
 			Integer ownerID = result.getInt(5);
 			Integer categoryID = result.getInt(5);
 
@@ -79,12 +80,66 @@ public class DAO_Topic extends DAO {
 		stat.setInt(4, topic.get_ownerId());
 		stat.setInt(5, topic.get_categoryId());
 		//Execute the request
-		int nbRes = stat.executeUpdate();
+		stat.executeUpdate();
 		
 		// Get the ID
 		ResultSet res = stat.getGeneratedKeys();
 		
 		return new Topic(res.getInt(1), topic.get_title(), topic.get_text(), topic.get_creationDate(), topic.get_ownerId(), topic.get_categoryId());
+	}
+	
+	
+	public void removeTopic(Topic topic) throws Exception {
+		if(topic == null) {
+			throw new IllegalArgumentException("The \"topic\" argument must not be null");
+		}
+		if(topic.get_id() == null) {
+			throw new IllegalArgumentException("The \"topic\" object must not have a null id");
+		}
+		
+		//Remove the children answers
+		DAO_Answer daoAnswer = DAOManager.getInstance().getDAO_Answer();
+		List<Answer> answers = daoAnswer.getAnswer_Topic(topic);
+		for (Answer child : answers) {
+			daoAnswer.removeAnswer(child);
+		}
+		//Prepare the request
+		String sql = "DELETE FROM " + Topic.TABLE_NAME + 
+					" WHERE id=?;";
+
+		
+		PreparedStatement stat = this.get_database().getConnection().prepareStatement(sql);
+		stat.setInt(1, topic.get_id());
+		
+		//Execute the request
+		stat.executeUpdate();
+	}
+	
+	
+	public void updateTopic(Topic topic) throws SQLException {
+		if(topic == null) {
+			throw new IllegalArgumentException("The \"topic\" argument must not be null");
+		}
+		if(topic.get_id() == null) {
+			throw new IllegalArgumentException("The \"topic\" object must not have a null id");
+		}
+		
+		//Prepare the request
+		String sql = "UPDATE " + Topic.TABLE_NAME + 
+					" SET title=?, message=?, creationDate=?, ownerID=?, categoryID=? " +
+					" WHERE id=?;";
+
+		
+		PreparedStatement stat = this.get_database().getConnection().prepareStatement(sql);
+		stat.setString(1, topic.get_title());
+		stat.setString(2, topic.get_text());
+		stat.setDate(3, new java.sql.Date(topic.get_creationDate().getTime()));
+		stat.setInt(4, topic.get_ownerId());
+		stat.setInt(5, topic.get_categoryId());
+		stat.setInt(6, topic.get_id());
+		
+		//Execute the request
+		stat.executeUpdate();
 	}
 
 }

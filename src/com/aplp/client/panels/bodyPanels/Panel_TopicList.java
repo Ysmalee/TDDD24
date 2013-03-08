@@ -105,7 +105,7 @@ public class Panel_TopicList implements BodyPanel {
 	@Override
 	public void onSetVisible(Map<String, Object> arguments) {
 		this._category = (Category)arguments.get("category");
-		this.displayTopics(); // Le onSetVisible est callé qu'après initWidget du coup on peut se servir de l'argument que là...
+		this.displayTopics(); // Le onSetVisible est callï¿½ qu'aprï¿½s initWidget du coup on peut se servir de l'argument que lï¿½...
 	}
 
 
@@ -119,8 +119,8 @@ public class Panel_TopicList implements BodyPanel {
 				Panel_TopicList.this._labelEmpty.setText("There is no topic right now, create one!");
 				Panel_TopicList.this._panel_main.add(Panel_TopicList.this._labelEmpty);
 			} else {
-					Widget_Topic_List widget = new Widget_Topic_List(Panel_TopicList.this._context, result);
-					Panel_TopicList.this._panel_topics.add(widget);
+				Widget_Topic_List widget = new Widget_Topic_List(Panel_TopicList.this._context, result);
+				Panel_TopicList.this._panel_topics.add(widget);
 			}
 		}
 		

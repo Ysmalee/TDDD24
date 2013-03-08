@@ -24,14 +24,13 @@ public class Service_UserImpl extends RemoteServiceServlet implements Service_Us
 	}
 	
 	@Override
-	public User login(String login, String password) {
+	public User login(String login, String password) throws Exception {
 		//Find the user
 		User user;
 		try {
 			user = this._daoManager.getDAO_User().getUser_byLogin(login);
 		} catch (SQLException e) {
-			//TODO: Add the exception handling
-			return null;
+			throw new Exception(e.getMessage());
 		}
 		
 		//Test the password
@@ -42,15 +41,19 @@ public class Service_UserImpl extends RemoteServiceServlet implements Service_Us
 		}
 	}
 	
-	public User getUserById(Integer id) {
+	
+	
+	
+	
+	
+	public User getUserById(Integer id) throws Exception {
 		//Find the user
 		User user;
 		try {
 			user = this._daoManager.getDAO_User().getUser_byId(id);
 			return user;
 		} catch (SQLException e) {
-			//TODO: Add the exception handling
-			return null;
+			throw new Exception(e.getMessage());
 		}
 	}
 

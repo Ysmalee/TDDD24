@@ -16,7 +16,8 @@ public class Widget_NbAnswer extends Composite {
 
 	private Context _context;
 	private Topic _topic;
-	private int _nbAswers;
+
+	private Label _nbAnswers;
 	
 	
 	public Widget_NbAnswer(Context context, Topic topic) {
@@ -38,23 +39,24 @@ public class Widget_NbAnswer extends Composite {
 	
 	
 	private Widget createWidget() {
+		this._nbAnswers = new Label(); 
+		
 		//Create the panels
 		this._context.getForumService().getAnswers(this._topic, new AsyncCallback<List<Answer>>() {
 			@Override
 			public void onSuccess(List<Answer> result) {
-				Widget_NbAnswer.this._nbAswers = result.size();
+				Widget_NbAnswer.this._nbAnswers.setText(Integer.toString(result.size()));
 			}
-
 			@Override
 			public void onFailure(Throwable caught) {
+				Widget_NbAnswer.this._nbAnswers.setText("");
 			}
 
 		});
 		
 		//Create the composit structure
-		Label label = new Label(String.valueOf(this._nbAswers));
 		VerticalPanel compositWidget = new VerticalPanel();
-		compositWidget.add(label);
+		compositWidget.add(this._nbAnswers);
 		
 		return compositWidget;
 	}

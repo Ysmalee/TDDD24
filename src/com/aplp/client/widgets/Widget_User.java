@@ -13,10 +13,9 @@ public class Widget_User extends Composite {
 
 	private Context _context;
 	private Integer _userId;
-	private String _login;
 	
-	//TODO PUte a chien ca me brise les burnes, le println dans le createWidget m'affiche null mais celui dans le set Login m'affiche bien le pseudo......
-	// Y'a le même probleme dans Widget_NBAnswer
+	private Label _userLogin;
+	
 	
 	public Widget_User(Context context, Integer userId) {
 		if(userId == null) {
@@ -37,31 +36,27 @@ public class Widget_User extends Composite {
 	
 	
 	private Widget createWidget() {
+		this._userLogin = new Label("");
+		
 		//Create the panels
 		this._context.getUserService().getUserById(this._userId, new AsyncCallback<User>() {
 			
 			@Override
 			public void onSuccess(User result) {
-				Widget_User.this.setLogin(result.get_login());
+				Widget_User.this._userLogin.setText(result.get_login());
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
+				Widget_User.this._userLogin.setText("");
 			}
 		});
 		
-		//Create the composit structure
-		System.out.println(this._login);
-		Label label = new Label(this._login);
 		VerticalPanel compositWidget = new VerticalPanel();
-		compositWidget.add(label);
+		compositWidget.add(this._userLogin);
 		
 		return compositWidget;
 	}
 
-	private void setLogin(String login) {
-		System.out.println(login);
-		Widget_User.this._login = login;
-	}
 
 }

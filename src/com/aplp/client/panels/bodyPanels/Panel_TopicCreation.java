@@ -164,7 +164,6 @@ public class Panel_TopicCreation implements BodyPanel {
 	public void onPanelChange(PanelsEnum oldPanel,
 			Map<String, Object> oldPanelArguments, PanelsEnum newPanel,
 			Map<String, Object> newPanelArguments) {
-		// TODO Auto-generated method stub
 		
 	}
 }
