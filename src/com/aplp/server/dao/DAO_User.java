@@ -110,8 +110,13 @@ public class DAO_User extends DAO {
 		Boolean moderator = result.getBoolean(3);
 		User user = new User(id, login, password, moderator);
 		
-		
+		doTest();
 		return user;
+	}
+
+
+
+	private void doTest() throws SQLException {
 	}
  
 }

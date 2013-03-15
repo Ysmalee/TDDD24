@@ -30,6 +30,7 @@ public class Forum implements Context {
 	/**
 	 * Log ID constant
 	 */
+	@SuppressWarnings("unused")
 	private static final String LOG_ID = "Forum";
 
 

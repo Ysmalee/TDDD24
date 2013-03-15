@@ -41,6 +41,8 @@ public class Widget_Topic_List extends Composite {
 		table.setText(0, 1, "Author");
 		table.setText(0, 2, "Answers");
 		table.setText(0, 3, "Date");
+		table.getRowFormatter().addStyleName(0, "watchListHeader");
+		table.addStyleName("watchList");
 
 		int i = 1;
 		
