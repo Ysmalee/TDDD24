@@ -59,7 +59,7 @@ public class Forum implements Context {
 	/**
 	 * User connected
 	 */
-	private User _userConnected;
+	private User _userConnected = null;
 
 	/**
 	 * Header panel
